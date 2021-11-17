@@ -1,0 +1,27 @@
+﻿@model IEnumerable<NWEB.Practice.T01.Web.Models.FlowerVM>
+@using NWEB.Practice.T01.Web.IRepositories;
+@inject IUnitOfWork unitOfWork;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var flower = await unitOfWork.Flowers.FindAll();
+}
+
+<div class="row">
+    @foreach (var item in flower)
+    {
+        <div class="card col-3" style="width: 18rem;">
+            <img class="card-img-top" alt="A Flower" src=@item.Image>
+            <div class="card-body">
+                <h5 class="card-title">@item.Name</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item text-center">Price: @item.Price</li>
+                @*<li class="list-group-item text-center text-decoration-line-through">@item.Price VND</li>*@
+            </ul>
+            <div class="card-body">
+                <button class="btn w-100 btn-outline-primary">Add to cart</button>
+            </div>
+        </div>
+    }
+</div>
